@@ -42,6 +42,8 @@ class Solution {
  * 所以就对每个结点来说，都访问他的左孩子，有孩子，根节点，且是用stack储存，这样出栈顺序就是根， 右， 左
  * 且添加顺序是都在第0个位置添加，这也就使得answer内的顺序为
  * 根， 右根， 左右根
+ *
+ * 干脆就倒过来做，根右左
  */
 
 
@@ -58,6 +60,26 @@ class Solution {
             if(root.left != null) stack.add(root.left);
             if(root.right != null) stack.add(root.right);
 
+        }
+        return answer;
+    }
+}
+
+/**
+ * 干脆就倒过来做，根右左
+ */
+class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> answer = new ArrayList();
+        Stack<TreeNode> stack = new Stack();
+        while(!stack.isEmpty() || root!=null){
+            while(root!=null){
+                stack.push(root);
+                answer.add(0, root.val);
+                root = root.right;
+            }
+            root = stack.pop();
+            root = root.left;
         }
         return answer;
     }
